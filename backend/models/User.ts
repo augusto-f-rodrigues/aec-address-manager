@@ -32,15 +32,15 @@ User.init(
       primaryKey: true,
     },
     name: {
-      type: new DataTypes.TEXT(),
+      type: new DataTypes.TEXT,
       allowNull: false,
     },
     user: {
-      type: new DataTypes.TEXT(),
+      type: new DataTypes.TEXT,
       allowNull: false,
     },
     password: {
-      type: new DataTypes.TEXT(),
+      type: new DataTypes.TEXT,
       allowNull: false,
     },
   },
