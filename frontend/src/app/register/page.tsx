@@ -1,19 +1,28 @@
 'use client';
 import { FormControl, TextField, Button, FormHelperText } from '@mui/material';
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 
-export default function Login() {
-  const [username, setUsername] = useState<string | null>(null);
+export default function Register() {
+  const [name, setName] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
-  const [errors, setErrors] = useState({ username: false, password: false });
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
 
-  const handleLogin = (event: any) => {
+  const handleRegister = (event: any) => {
     event.preventDefault();
-    const newErrors = { username: false, password: false };
+    const newErrors = { name: false, email: false, password: false };
 
-    if (!username) {
-      newErrors.username = true;
+    if (!name) {
+      newErrors.name = true;
+    }
+
+    if (!email) {
+      newErrors.email = true;
     }
 
     if (!password) {
@@ -22,31 +31,48 @@ export default function Login() {
 
     setErrors(newErrors);
 
-    if (!newErrors.username && !newErrors.password) {
-      console.log('Username:', username);
+    if (!newErrors.name && !newErrors.email && !newErrors.password) {
+      console.log('Name:', name);
+      console.log('Email:', email);
       console.log('Password:', password);
     }
   };
 
   return (
     <main className="main-container">
-      <h1 className="text-h1 mb-4">Login</h1>
+      <h1 className="text-h1 mb-4">Cadastro</h1>
       <form
         className="flex w-full min-w-80 max-w-[500px] flex-col items-center justify-center rounded-lg border border-gray-500 border-opacity-20 bg-white p-10"
-        onSubmit={handleLogin}
+        onSubmit={handleRegister}
         noValidate
       >
-        <FormControl fullWidth className="mb-4" error={errors.username}>
+        <FormControl fullWidth className="mb-4" error={errors.name}>
           <TextField
-            id="username"
-            label="Usuário"
-            error={errors.username}
+            id="name"
+            label="Nome"
+            error={errors.name}
             variant="outlined"
-            value={username || ''}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name || ''}
+            onChange={(e) => setName(e.target.value)}
             required
           />
-          {errors.username && (
+          {errors.name && (
+            <FormHelperText>Esse campo é obrigatório</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl fullWidth className="mb-4" error={errors.email}>
+          <TextField
+            id="email"
+            label="Email"
+            error={errors.email}
+            type="email"
+            variant="outlined"
+            value={email || ''}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          {errors.email && (
             <FormHelperText>Esse campo é obrigatório</FormHelperText>
           )}
         </FormControl>
@@ -68,12 +94,12 @@ export default function Login() {
         </FormControl>
 
         <div className="flex w-full flex-col items-center md:flex-row md:gap-4">
-          <Link className="w-full md:max-w-52" href="/register">
+          <Link className="w-full md:max-w-52" href="/">
             <Button
               className="w-full bg-blue-600 px-8 py-1 normal-case hover:bg-blue-500"
               variant="contained"
             >
-              <span>Cadastre-se</span>
+              <span>Voltar</span>
             </Button>
           </Link>
 
@@ -82,7 +108,7 @@ export default function Login() {
             variant="contained"
             type="submit"
           >
-            <span>Entrar</span>
+            <span>Registrar</span>
           </Button>
         </div>
       </form>
