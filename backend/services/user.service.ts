@@ -1,4 +1,7 @@
 import User from '../models/User';
+import { generateToken } from './jwt.service';
+import bcrypt from 'bcryptjs';
+
 
 export async function createUser(userData: User) {
   try {
@@ -7,8 +10,13 @@ export async function createUser(userData: User) {
       throw new Error('Nome de usuário já existe');
     }
     
-    const user = await User.create(userData);
-    return user;
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    userData.password = hashedPassword;
+    
+    await User.create(userData);
+
+    const token = generateToken(userData);
+    return token;
   } catch (error: any) {
     if (error.message === 'Nome de usuário já existe') {
       throw new Error(error.message);
@@ -17,4 +25,5 @@ export async function createUser(userData: User) {
     }
   }
 }
+
 

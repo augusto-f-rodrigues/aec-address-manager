@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const sequelize = new Sequelize(
-  process.env.DB_DATABASE!,
-  process.env.DB_USERNAME!,
-  process.env.DB_PASSWORD!,
+  "aec-address-manager",
+   "postgres",
+   "postgres",
   {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT as Dialect,
+    host: "localhost",
+    dialect: "postgres",
   }
 );
 

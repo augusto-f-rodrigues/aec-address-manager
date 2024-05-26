@@ -25,7 +25,6 @@ router.get('/user', async (req, res) => {
 router.post('/user', async (req, res) => {
   try {
     const user = await createUser(req.body);
-    delete user.dataValues.id
     res.status(201).json(user);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
