@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import User from '../models/User';
+import { createUser } from '../services/user.services';
 
 const router = Router();
 
@@ -23,10 +24,11 @@ router.get('/user', async (req, res) => {
 
 router.post('/user', async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const user = await createUser(req.body);
+    delete user.dataValues.id
     res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ message: 'Something went wrong' });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
   }
 });
 

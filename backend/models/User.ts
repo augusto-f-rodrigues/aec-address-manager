@@ -2,9 +2,9 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../database";
 
 interface UserAttributes {
-  id: string;
+  id?: string;
   name: string;
-  user: string;
+  username: string;
   password: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -16,9 +16,9 @@ class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
-  public id!: string;
+  public id?: string;
   public name!: string;
-  public user!: string;
+  public username!: string;
   public password!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -35,7 +35,7 @@ User.init(
       type: new DataTypes.TEXT,
       allowNull: false,
     },
-    user: {
+    username: {
       type: new DataTypes.TEXT,
       allowNull: false,
     },

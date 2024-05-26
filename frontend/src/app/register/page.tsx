@@ -1,28 +1,29 @@
 'use client';
+import { createUser } from '@/services/api';
 import { FormControl, TextField, Button, FormHelperText } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Register() {
   const [name, setName] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [errors, setErrors] = useState({
     name: false,
-    email: false,
+    username: false,
     password: false,
   });
 
-  const handleRegister = (event: any) => {
+  const handleRegister = async (event: any) => {
     event.preventDefault();
-    const newErrors = { name: false, email: false, password: false };
+    const newErrors = { name: false, username: false, password: false };
 
     if (!name) {
       newErrors.name = true;
     }
 
-    if (!email) {
-      newErrors.email = true;
+    if (!username) {
+      newErrors.username = true;
     }
 
     if (!password) {
@@ -31,10 +32,13 @@ export default function Register() {
 
     setErrors(newErrors);
 
-    if (!newErrors.name && !newErrors.email && !newErrors.password) {
-      console.log('Name:', name);
-      console.log('Email:', email);
-      console.log('Password:', password);
+    if (!newErrors.name && !newErrors.username && !newErrors.password) {
+      try {
+        await createUser({ name: name!, username: username!, password: password!});
+        console.log('Usuário registrado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao criar usuário:', error);
+      }
     }
   };
 
@@ -61,18 +65,18 @@ export default function Register() {
           )}
         </FormControl>
 
-        <FormControl fullWidth className="mb-4" error={errors.email}>
+        <FormControl fullWidth className="mb-4" error={errors.username}>
           <TextField
-            id="email"
-            label="Email"
-            error={errors.email}
-            type="email"
+            id="username"
+            label="Nome de usuário"
+            error={errors.username}
+            type="username"
             variant="outlined"
-            value={email || ''}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username || ''}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
-          {errors.email && (
+          {errors.username && (
             <FormHelperText>Esse campo é obrigatório</FormHelperText>
           )}
         </FormControl>

@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../database";
 
 interface AddressAttributes {
-  id: string;
+  id?: string;
   cep: string;
   address: string;
   complement?: string;
@@ -20,7 +20,7 @@ class Address
   extends Model<AddressAttributes, AddressCreationAttributes>
   implements AddressAttributes
 {
-  public id!: string;
+  public id?: string;
   public cep!: string;
   public address!: string;
   public complement?: string;

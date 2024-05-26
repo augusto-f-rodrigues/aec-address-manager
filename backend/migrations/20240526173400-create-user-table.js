@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      user: {
+      username: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
