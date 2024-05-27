@@ -11,7 +11,6 @@ export const decryptData = (token: string): JwtPayload | string => {
   }
 };
 
-
 export function encryptData(data: any) {
   return jwt.sign(
     data,

@@ -4,12 +4,12 @@ import sequelize from "../database";
 interface AddressAttributes {
   id?: string;
   userId: string;
-  cep: string;
+  zipCode: string;  
   address: string;
   complement?: string;
   neighborhood: string;
   city: string;
-  uf: string;
+  state: string;  
   number: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -23,12 +23,12 @@ class Address
 {
   public id?: string;
   public userId!: string;
-  public cep!: string;
+  public zipCode!: string;  
   public address!: string;
   public complement?: string;
   public neighborhood!: string;
   public city!: string;
-  public uf!: string;
+  public state!: string;  
   public number!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -47,7 +47,8 @@ Address.init(
       allowNull: false,
       references: { model: 'user', key: 'id' }
     },
-    cep: {
+    zipCode: {
+      field: 'zip_code',
       type: new DataTypes.TEXT,
       allowNull: false,
     },
@@ -67,7 +68,7 @@ Address.init(
       type: new DataTypes.TEXT,
       allowNull: false,
     },
-    uf: {
+    state: {
       type: new DataTypes.TEXT,
       allowNull: false,
     },
