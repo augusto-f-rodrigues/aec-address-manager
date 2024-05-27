@@ -6,7 +6,7 @@ import userRoutes from "./routes/user.routes";
 import addressRoutes from "./routes/address.routes";
 import loginRoutes from "./routes/login.routes";
 import signInRoutes from "./routes/sign-in.routes";
-import { tokenValited } from "./middleware/tokenValited.middleware";
+import { tokenValidated } from "./middleware/tokenValidated.middleware";
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use("/api", signInRoutes);
 app.use("/api", loginRoutes);
 
-app.use('*', tokenValited);
+app.use('*', tokenValidated);
 
 app.use("/api", userRoutes);
 app.use("/api", addressRoutes);

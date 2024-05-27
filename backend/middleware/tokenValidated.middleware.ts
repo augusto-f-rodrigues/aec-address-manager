@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from "express";
 import jsonwebtoken, { Secret } from "jsonwebtoken";
 import { secretKey } from "..";
 
-export function tokenValited(
+export function tokenValidated(
   request: Request,
   response: Response,
   next: NextFunction
