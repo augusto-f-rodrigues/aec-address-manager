@@ -1,7 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import jsonwebtoken, { Secret } from "jsonwebtoken";
-
-const secretKey = process.env.SECRET_KEY;
+import { secretKey } from "..";
 
 export function tokenValited(
   request: Request,

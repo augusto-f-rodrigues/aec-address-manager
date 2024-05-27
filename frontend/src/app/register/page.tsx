@@ -9,7 +9,7 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
-import { createUser } from '@/services/sign-in.api';
+import { createUser } from '@/services/sign-in.service';
 
 export default function Register() {
   const [name, setName] = useState<string | null>(null);

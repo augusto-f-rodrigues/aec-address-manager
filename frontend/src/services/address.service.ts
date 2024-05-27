@@ -1,4 +1,5 @@
-import api from './axios-setup.api';
+import { AxiosResponse } from 'axios';
+import api from './axios-setup.service';
 
 export const getAddressById = async (id: string) => {
   try {
@@ -22,7 +23,7 @@ export const getAllAddresses = async () => {
 
 export const getAllAddressesByUserId = async (userId: string) => {
   try {
-    const response = await api.get(`/address/user/${userId}`);
+    const response = await api.get<any, AxiosResponse<AddressI[], any>>(`/address/user/${userId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching addresses:', error);

@@ -15,7 +15,7 @@ router.get('/address/:id', async (req, res) => {
 
 router.get('/address/user/:id', async (req, res) => {
   try {
-    const addresses = getAllAddressesByUserId(req.params.id);
+    const addresses = await getAllAddressesByUserId(req.params.id);
     res.status(200).json(addresses);
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });

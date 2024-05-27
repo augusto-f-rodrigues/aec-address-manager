@@ -1,4 +1,4 @@
-import api from './axios-setup.api';
+import api from './axios-setup.service';
 
 export const getUserById = async (id: string) => {
   try {

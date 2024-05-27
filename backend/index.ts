@@ -13,6 +13,8 @@ dotenv.config();
 const app: Express = express();
 
 const port = process.env.PORT;
+export const secretKey = process.env.JWT_SECRET;
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
