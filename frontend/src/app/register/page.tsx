@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
 import { createUser } from '@/services/sign-in.service';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
   const [name, setName] = useState<string | null>(null);
@@ -25,6 +26,7 @@ export default function Register() {
     'success' | 'error' | 'warning' | 'info'
   >('info');
   const [openAlert, setOpenAlert] = useState(false);
+  const router = useRouter();
 
   const handleRegister = async (event: any) => {
     event.preventDefault();
@@ -54,6 +56,7 @@ export default function Register() {
         setAlertMessage('Usuário registrado com sucesso!');
         setAlertSeverity('success');
         setOpenAlert(true);
+        router.push('/');
       } catch (error: any) {
         console.error(error);
         setAlertMessage(error.response.data.message || 'Erro ao criar usuário');

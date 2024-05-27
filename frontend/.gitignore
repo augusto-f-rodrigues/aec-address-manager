@@ -26,8 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env
-.env*.local
+# ARQUIVOS ".env" não foram adicionados ao ".gitignore" somente para exemplificação e didática do projeto, assim não será necessário adicionar manualmente quem vier a fazer o clone do repositório
+# .env
+# .env*.local
 
 # vercel
 .vercel

@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Link from 'next/link';
-import { login } from '@/services/login.service';
+import { login } from '@/services/auth.service';
 import CustomAlert from '@/components/CustomAlert';
 import { useRouter } from 'next/navigation';
 
