@@ -1,9 +1,9 @@
 'use client';
-import { createUser } from '@/services/api';
 import { FormControl, TextField, Button, FormHelperText, Snackbar } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
+import { createUser } from '@/services/sign-in.api';
 
 export default function Register() {
   const [name, setName] = useState<string | null>(null);

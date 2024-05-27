@@ -1,10 +1,4 @@
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8080/api';
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-});
+import api from './axios-setup.api';
 
 export const getUserById = async (id: string) => {
   try {
@@ -22,15 +16,6 @@ export const getUsers = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching users:', error);
-    throw error;
-  }
-};
-
-export const createUser = async (userData: UserI) => {
-  try {
-    const response = await api.post('/user', userData);
-    return response.data;
-  } catch (error) {
     throw error;
   }
 };
