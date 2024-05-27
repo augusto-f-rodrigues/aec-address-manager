@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   color: #434343;
   @apply bg-blue-50
 }
 
 @layer utilities {
   .main-container {
-    @apply flex flex-col justify-center items-center w-full h-full p-4
+    @apply flex flex-col justify-center items-center w-full h-full p-10
   }
   .text-h1{
     @apply text-2xl font-extrabold text-center lg:text-4xl

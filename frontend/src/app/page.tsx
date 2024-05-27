@@ -92,7 +92,7 @@ export default function Login() {
           )}
         </FormControl>
 
-        <div className="flex w-full flex-col items-center md:flex-row md:gap-4">
+        <div className="flex w-full flex-col items-center md:flex-row gap-4">
           <Link className="w-full md:max-w-52" href="/register">
             <Button
               className="w-full bg-blue-600 px-8 py-1 normal-case hover:bg-blue-500"
