@@ -24,7 +24,7 @@ export function tokenValited(
 
     return next();
   } catch(error) {
-    console.log(error);
+    console.error(error);
     return response.status(401).json({ message: 'Invalid token' });
   }
 }

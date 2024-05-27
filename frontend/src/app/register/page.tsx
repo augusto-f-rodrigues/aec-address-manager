@@ -1,5 +1,11 @@
 'use client';
-import { FormControl, TextField, Button, FormHelperText, Snackbar } from '@mui/material';
+import {
+  FormControl,
+  TextField,
+  Button,
+  FormHelperText,
+  Snackbar,
+} from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
@@ -15,7 +21,9 @@ export default function Register() {
     password: false,
   });
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error' | 'warning' | 'info'>('info');
+  const [alertSeverity, setAlertSeverity] = useState<
+    'success' | 'error' | 'warning' | 'info'
+  >('info');
   const [openAlert, setOpenAlert] = useState(false);
 
   const handleRegister = async (event: any) => {
@@ -38,12 +46,16 @@ export default function Register() {
 
     if (!newErrors.name && !newErrors.username && !newErrors.password) {
       try {
-        await createUser({ name: name!, username: username!, password: password! });
+        await createUser({
+          name: name!,
+          username: username!,
+          password: password!,
+        });
         setAlertMessage('Usuário registrado com sucesso!');
         setAlertSeverity('success');
         setOpenAlert(true);
       } catch (error: any) {
-        console.log(error)
+        console.error(error);
         setAlertMessage(error.response.data.message || 'Erro ao criar usuário');
         setAlertSeverity('error');
         setOpenAlert(true);
@@ -124,7 +136,11 @@ export default function Register() {
           </Button>
         </div>
       </form>
-      <Snackbar open={openAlert} autoHideDuration={3000} onClose={() => setOpenAlert(false)}>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={3000}
+        onClose={() => setOpenAlert(false)}
+      >
         <CustomAlert severity={alertSeverity} message={alertMessage!} />
       </Snackbar>
     </main>

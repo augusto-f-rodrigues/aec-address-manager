@@ -1,14 +1,29 @@
 'use client';
-import { FormControl, TextField, Button, FormHelperText } from '@mui/material';
+import {
+  FormControl,
+  TextField,
+  Button,
+  FormHelperText,
+  Snackbar,
+} from '@mui/material';
 import { useState } from 'react';
 import Link from 'next/link';
+import { login } from '@/services/login.api';
+import CustomAlert from '@/components/CustomAlert';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [username, setUsername] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [errors, setErrors] = useState({ username: false, password: false });
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertSeverity, setAlertSeverity] = useState<
+    'success' | 'error' | 'warning' | 'info'
+  >('info');
+  const [openAlert, setOpenAlert] = useState(false);
+  const router = useRouter();
 
-  const handleLogin = (event: any) => {
+  const handleLogin = async (event: any) => {
     event.preventDefault();
     const newErrors = { username: false, password: false };
 
@@ -23,8 +38,18 @@ export default function Login() {
     setErrors(newErrors);
 
     if (!newErrors.username && !newErrors.password) {
-      console.log('Username:', username);
-      console.log('Password:', password);
+      try {
+        const { token } = await login(username!, password!);
+        localStorage.setItem('token', token);
+        router.push('/address/list');
+      } catch (error: any) {
+        console.error('Error logging in:', error);
+        setAlertMessage(
+          error.response.data.message || 'Erro ao realizar login',
+        );
+        setAlertSeverity('error');
+        setOpenAlert(true);
+      }
     }
   };
 
@@ -86,6 +111,13 @@ export default function Login() {
           </Button>
         </div>
       </form>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={3000}
+        onClose={() => setOpenAlert(false)}
+      >
+        <CustomAlert severity={alertSeverity} message={alertMessage!} />
+      </Snackbar>
     </main>
   );
 }
