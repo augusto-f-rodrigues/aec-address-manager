@@ -20,7 +20,7 @@ export const getUsers = async () => {
   }
 };
 
-export const updateUser = async (id: string, userData: any) => {
+export const updateUser = async (id: string, userData: UserI) => {
   try {
     const response = await api.put(`/user/${id}`, userData);
     return response.data;

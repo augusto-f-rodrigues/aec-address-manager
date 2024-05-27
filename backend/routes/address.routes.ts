@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Address from '../models/Address';
+import { getAllAddressesByUserId } from '../services/address.service';
 
 const router = Router();
 
@@ -12,10 +13,19 @@ router.get('/address/:id', async (req, res) => {
   }
 });
 
+router.get('/address/user/:id', async (req, res) => {
+  try {
+    const addresses = getAllAddressesByUserId(req.params.id);
+    res.status(200).json(addresses);
+  } catch (error) {
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+});
+
 router.get('/address', async (req, res) => {
   try {
-    const address = await Address.findAll();
-    res.status(200).json(address);
+    const addresses = await Address.findAll();
+    res.status(200).json(addresses);
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });
   }

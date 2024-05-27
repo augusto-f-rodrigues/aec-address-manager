@@ -3,6 +3,7 @@ import sequelize from "../database";
 
 interface AddressAttributes {
   id?: string;
+  userId: string;
   cep: string;
   address: string;
   complement?: string;
@@ -21,6 +22,7 @@ class Address
   implements AddressAttributes
 {
   public id?: string;
+  public userId!: string;
   public cep!: string;
   public address!: string;
   public complement?: string;
@@ -38,6 +40,12 @@ Address.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+    },
+    userId: {
+      field: 'user_id',
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: { model: 'user', key: 'id' }
     },
     cep: {
       type: new DataTypes.TEXT,
