@@ -117,7 +117,7 @@ export default function Register() {
           )}
         </FormControl>
 
-        <div className="flex w-full flex-col items-center md:flex-row gap-4">
+        <div className="flex w-full flex-col items-center gap-4 md:flex-row">
           <Link className="w-full md:max-w-52" href="/">
             <Button
               className="w-full bg-blue-600 px-8 py-1 normal-case hover:bg-blue-500"

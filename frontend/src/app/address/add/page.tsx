@@ -13,6 +13,7 @@ import { createAddress } from '@/services/address.service';
 import CustomAlert from '@/components/CustomAlert';
 import Link from 'next/link';
 import { decryptData } from '@/utils/jwt.util';
+import { fetchAddressData } from '@/services/via-cep.service';
 
 const AddressAdd = () => {
   const [address, setAddress] = useState<AddressI>({
@@ -38,6 +39,34 @@ const AddressAdd = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setAddress({ ...address, [name]: value });
+
+    if (name === 'zipCode' && value.length === 8) {
+      handleZipCodeChange(value);
+    }
+  };
+
+  const handleZipCodeChange = async (zipCode: string) => {
+    const data = await fetchAddressData(zipCode);
+
+    if (data) {
+      setAddress((prevAddress) => ({
+        ...prevAddress,
+        address: data.logradouro,
+        complement: data.complemento,
+        neighborhood: data.bairro,
+        city: data.localidade,
+        state: data.uf,
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        zipCode: undefined,
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        zipCode: 'CEP não encontrado',
+      }));
+    }
   };
 
   const validate = () => {
@@ -60,7 +89,7 @@ const AddressAdd = () => {
         const token = localStorage.getItem('token');
         const decryptedData: any = decryptData(token!);
         const userId = decryptedData.id;
-        await createAddress({...address, userId: userId});
+        await createAddress({ ...address, userId: userId });
         setAlertMessage('Endereço adicionado com sucesso!');
         setAlertSeverity('success');
         setOpenAlert(true);
@@ -87,6 +116,7 @@ const AddressAdd = () => {
             id="zipCode"
             name="zipCode"
             label="CEP"
+            inputProps={{ maxLength: 8 }}
             value={address.zipCode}
             onChange={handleChange}
             required
@@ -171,13 +201,6 @@ const AddressAdd = () => {
         </FormControl>
 
         <div className="flex w-full flex-col items-center gap-4 md:flex-row">
-          <Button
-            className="w-full bg-green-600 px-8 py-2 normal-case hover:bg-green-500"
-            variant="contained"
-            type="submit"
-          >
-            <span>Adicionar</span>
-          </Button>
           <Link className="w-full" href="/address/list">
             <Button
               className="w-full bg-blue-600 px-8 py-2 normal-case hover:bg-blue-500"
@@ -186,6 +209,13 @@ const AddressAdd = () => {
               <span>Voltar</span>
             </Button>
           </Link>
+          <Button
+            className="w-full bg-green-600 px-8 py-2 normal-case hover:bg-green-500"
+            variant="contained"
+            type="submit"
+          >
+            <span>Adicionar</span>
+          </Button>
         </div>
       </form>
       <Snackbar
